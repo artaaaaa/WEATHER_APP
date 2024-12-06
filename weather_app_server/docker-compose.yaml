@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  # Development services
+  postgres:
+    image: postgres:16.3
+    ports:
+      - '8090:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: weather_app
+      POSTGRES_PASSWORD: "D8N6urztimSGX2j-zeyC3rTnS4b4RsPN"
+    volumes:
+      - weather_app_data:/var/lib/postgresql/data
+    profiles:
+      - '' # Default profile
+      - dev
+  redis:
+    image: redis:6.2.6
+    ports:
+      - '8091:6379'
+    command: redis-server --requirepass "oAikDL_Xq0T5G7W3eU05z6Jba8OYu9xT"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    profiles:
+      - '' # Default profile
+      - dev
+
+  # Test services
+  postgres_test:
+    image: postgres:16.3
+    ports:
+      - '9090:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: weather_app_test
+      POSTGRES_PASSWORD: "1L5_SEALNJJwxA-0K9z0oTHRU3gjTUlS"
+    volumes:
+      - weather_app_test_data:/var/lib/postgresql/data
+    profiles:
+      - '' # Default profile
+      - test
+  redis_test:
+    image: redis:6.2.6
+    ports:
+      - '9091:6379'
+    command: redis-server --requirepass "tLofxAk79f9zFPQNeUqz8ymvQRW_Yj4E"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    profiles:
+      - '' # Default profile
+      - test
+
+volumes:
+  weather_app_data:
+  weather_app_test_data:
