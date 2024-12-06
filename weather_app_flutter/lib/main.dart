@@ -123,7 +123,7 @@ class _ResultDisplay extends StatelessWidget {
       text = resultMessage!;
     } else {
       backgroundColor = Colors.grey[300]!;
-      text = 'No server response yet.';
+      text = 'bayu.';
     }
 
     return Container(
